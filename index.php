@@ -1,22 +1,6 @@
 <?php
 	
-	// Database Credentials
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$db = "socialid";
-
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $db);
-
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-	else {
-		echo "Connected successfully <br>";
-	}
-	
+	include 'sql.php';
 	
 	if(isset($_GET['regUser']) && isset($_GET['uname']) && isset($_GET['pass']) && isset($_GET['name'])){
         die(registerUser($_GET['uname'], $_GET['pass'], $_GET['name'], $conn));

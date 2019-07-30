@@ -1,15 +1,5 @@
 <?php
-	// Script to Parse Functions & Arguments
-
-	// Register User, Get username, password, name
-	if(isset($_GET['regUser']) && isset($_GET['uname']) && isset($_GET['pass']) && isset($_GET['name'])){
-	        die(registerUser($_GET['uname'], $_GET['pass'], $_GET['name'], $conn));
-	    }
-
-	// SignIn with username & password
-	if(isset($_GET['signIn']) && isset($_GET['uname']) && isset($_GET['pass'])){
-	        die(signIn($_GET['uname'], $_GET['pass'], $conn));
-	    }
+	// Script to Parse Functions & Arguments in app.php
 
 	// SignOut
 	if(isset($_GET['signOut'])){
@@ -51,7 +41,18 @@
 	        die(acceptRequest($_GET['fid'], $conn));
 	    }
 
+	// Reject friend request by FID
 	if(isset($_GET['rejReq']) && ($_GET['fid'])){
 	        die(rejectRequest($_GET['fid'], $conn));
+	    }
+
+	// View Current profile
+	if(isset($_GET['viewProfile'])){
+	        die(viewProfile($conn));
+	    }
+
+	// View profile by ID
+	if(isset($_GET['viewProfileID']) && ($_GET['id'])){
+	        die(viewProfilebyID($_GET['id'], $conn));
 	    }
 ?>

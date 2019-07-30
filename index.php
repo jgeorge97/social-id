@@ -1,8 +1,21 @@
 <?php
 	
 	include 'sql.php';
-	include 'parse.php';
+
+	//Script to Parse Functions & Arguments in this php file
+
+	// Register User, Get username, password, name
+	if(isset($_GET['regUser']) && isset($_GET['uname']) && isset($_GET['pass']) && isset($_GET['name'])){
+	        die(registerUser($_GET['uname'], $_GET['pass'], $_GET['name'], $conn));
+	    }
+
+	// SignIn with username & password
+	if(isset($_GET['signIn']) && isset($_GET['uname']) && isset($_GET['pass'])){
+	        die(signIn($_GET['uname'], $_GET['pass'], $conn));
+	    }	
 	
+	// End Parse Script
+
 	
 	// Register User using Username, Password & Name
 	function registerUser($uname,$pass,$name, $conn) {

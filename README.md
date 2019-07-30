@@ -58,3 +58,13 @@ localhost/social-id/app.php?accReq&fid=<fid>
 ```
 localhost/social-id/app.php?rejReq&fid=6
 ```
+
+* View Profile of Current user
+```
+localhost/social-id/app.php?viewProfile
+```
+
+* View Profile by ID
+```
+localhost/social-id/app.php?viewProfileID&id=<id>
+```

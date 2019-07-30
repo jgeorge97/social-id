@@ -15,6 +15,7 @@
 		}
 	}
 
+	// Returns username when an id is passed
 	function getUserbyID($uid, $conn){
 		$user = mysqli_query($conn, "SELECT username FROM users WHERE id = $uid LIMIT 1");
 		if ($user && (mysqli_num_rows($user)==1)) { //Check if query result is valid
@@ -25,6 +26,7 @@
 		}
 	}
 
+	// Sends a friend request to a user using their id
 	function sendRequest($fuid, $conn){
 		$cuid = $_SESSION['id']; //Get current user id from session id
 		$request = "INSERT INTO friend (id_1, id_2) VALUES ($cuid, $fuid)";
@@ -32,6 +34,20 @@
     		sendResponse(1, NULL);
 		} else {
 			sendResponse(0, $conn->error);
+		}
+	}
+
+	// List all friend requests of current user
+	function listRequest($conn){
+		$cuid = $_SESSION['id']; //Get current user id from session id
+		$frnd = mysqli_query($conn, "SELECT name FROM users WHERE id = ANY (SELECT id_1 FROM friend WHERE id_2 = $cuid AND status = 0)");
+		if ($frnd->num_rows > 0) {
+		    while($row = $frnd->fetch_assoc()) { //Fetches each name of user & outputs them 
+		        sendResponse(1, $row["name"]);
+		    }
+		} 	
+		else {
+	    	sendResponse(0, NULL);
 		}
 	}
 

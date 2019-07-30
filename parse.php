@@ -26,7 +26,13 @@
 	        die(getUserbyID($_GET['uid'], $conn));
 	    }
 
+	// Sends a friend request to user with their id
 	if(isset($_GET['sendReq']) && isset($_GET['fuid'])){
 	        die(sendRequest($_GET['fuid'], $conn));
+	    }
+
+	// List all friend requests of the current user
+	if(isset($_GET['listReq'])){
+	        die(listRequest($conn));
 	    }
 ?>

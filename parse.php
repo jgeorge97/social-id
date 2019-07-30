@@ -16,4 +16,8 @@
 	        die(signOut());
 	    }
 
+	// Add Social Network, Get Account Name, URL & visibility
+	if(isset($_GET['addSocial']) && isset($_GET['acc']) && isset($_GET['url']) && isset($_GET['visible'])){
+	        die(addSocial($_GET['acc'], $_GET['url'],$_GET['visible'], $conn));
+	    }
 ?>

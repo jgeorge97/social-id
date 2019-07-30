@@ -16,5 +16,10 @@ localhost/social-id/index.php?signIn&uname=<username>&pass=<password>
 
 * Signout & Destroy Session
 ```
-http://localhost/social-id/index.php?signOut
+localhost/social-id/app.php?signOut
+```
+
+* Add Social account with Name, URL & its visibility
+```
+localhost/social-id/app.php?addSocial&acc=<social_name>&url=<url>&visible=<public/private>
 ```

@@ -38,7 +38,7 @@
 	}
 
 	// List all friend requests of current user
-	function listRequest($conn){
+	function listRequestbyName($conn){
 		$cuid = $_SESSION['id']; //Get current user id from session id
 		$frnd = mysqli_query($conn, "SELECT name FROM users WHERE id = ANY (SELECT id_1 FROM friend WHERE id_2 = $cuid AND status = 0)");
 		if ($frnd->num_rows > 0) {
@@ -48,6 +48,55 @@
 		} 	
 		else {
 	    	sendResponse(0, NULL);
+		}
+	}
+
+	// List all FID's of friend requests of current user
+	function listRequestbyFID($conn){
+		$cuid = $_SESSION['id']; //Get current user id from session id
+		$ids = mysqli_query($conn, "SELECT f_id FROM friend WHERE id_2 = $cuid AND status = 0");
+		if ($ids->num_rows > 0) {
+		    while($row = $ids->fetch_assoc()) { //Fetches each f_id of user & outputs them 
+		        sendResponse(1, $row["f_id"]);
+		    }
+		} 	
+		else {
+	    	sendResponse(0, NULL);
+		}
+	}
+
+	// List all friends of current user
+	function listFriends($conn){
+		$cuid = $_SESSION['id']; //Get current user id from session id
+		$frn = mysqli_query($conn, "SELECT name FROM users WHERE id = ANY (SELECT id_1 FROM friend WHERE id_2 = $cuid AND status = 1)");
+		if ($frn->num_rows > 0) {
+		    while($row = $frn->fetch_assoc()) { //Fetches each name of user & outputs them 
+		        sendResponse(1, $row["name"]);
+		    }
+		} 	
+		else {
+	    	sendResponse(0, NULL);
+		}
+	}
+
+	// Accept Friend request byt FID
+	function acceptRequest($fid, $conn){
+		$cuid = $_SESSION['id']; //Get current user id from session id
+		$request = "UPDATE friend SET status = 1 WHERE id_2 = $cuid AND f_id = $fid";
+		if ($conn->query($request) === TRUE) {
+    		sendResponse(1, NULL);
+		} else {
+			sendResponse(0, $conn->error);
+		}
+	}
+
+	//
+	function rejectRequest($fid, $conn){
+		$request = "DELETE FROM friend WHERE f_id = $fid";
+		if ($conn->query($request) === TRUE) {
+    		sendResponse(1, NULL);
+		} else {
+			sendResponse(0, $conn->error);
 		}
 	}
 

@@ -32,7 +32,26 @@
 	    }
 
 	// List all friend requests of the current user
-	if(isset($_GET['listReq'])){
-	        die(listRequest($conn));
+	if(isset($_GET['listReqName'])){
+	        die(listRequestbyName($conn));
+	    }
+
+	// List all friend requests ID (FID) of the current user
+	if(isset($_GET['listReqID'])){
+	        die(listRequestbyFID($conn));
+	    }
+
+	// List all friends of current user
+	if(isset($_GET['listFrnd'])){
+	        die(listFriends($conn));
+	    }
+
+	// Accept Friend request by FID
+	if(isset($_GET['accReq']) && ($_GET['fid'])){
+	        die(acceptRequest($_GET['fid'], $conn));
+	    }
+
+	if(isset($_GET['rejReq']) && ($_GET['fid'])){
+	        die(rejectRequest($_GET['fid'], $conn));
 	    }
 ?>

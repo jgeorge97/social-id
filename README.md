@@ -33,3 +33,28 @@ localhost/social-id/app.php?getUser&uid=<id>
 ```
 localhost/social-id/app.php?sendReq&fuid=<id>
 ```
+
+* List all Friend Requests by nameof current user
+```
+localhost/social-id/app.php?listReqName
+```
+
+* List all Friend Requests by nameof current user
+```
+localhost/social-id/app.php?listReqID
+```
+
+* List all Friends of current user
+```
+localhost/social-id/app.php?listFrnd
+```
+
+* Accept a friend request by a FID
+```
+localhost/social-id/app.php?accReq&fid=<fid>
+```
+
+* Reject a friend request by a FID
+```
+localhost/social-id/app.php?rejReq&fid=6
+```

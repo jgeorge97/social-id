@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 30, 2019 at 09:01 PM
+-- Generation Time: Jul 30, 2019 at 10:45 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -33,7 +33,7 @@ CREATE TABLE `accounts` (
   `social_id` int(4) NOT NULL,
   `acc_name` varchar(50) NOT NULL,
   `acc_url` varchar(100) NOT NULL,
-  `visibility` varchar(10) NOT NULL DEFAULT 'private'
+  `visibility` int(1) NOT NULL DEFAULT 0 COMMENT '0 - private, 1 - public'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,11 +41,11 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`user_id`, `social_id`, `acc_name`, `acc_url`, `visibility`) VALUES
-(1, 1, 'FB', 'fb.com/jgeorge97', 'public'),
-(1, 2, 'IG', 'ig.com/george.m.jose', 'public'),
-(1, 3, 'TG', 't.me/georgemj', 'public'),
-(1, 4, 'MicroId', 'jgeorge97.microid.in', 'private'),
-(1, 5, 'Gmail', 'jgeorge97@gmail.com', 'public');
+(1, 1, 'FB', 'fb.com/jgeorge97', 1),
+(1, 2, 'IG', 'ig.com/george.m.jose', 1),
+(1, 3, 'TG', 't.me/georgemj', 0),
+(1, 4, 'MicroId', 'jgeorge97.microid.in', 1),
+(1, 5, 'Gmail', 'jgeorge97@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -65,12 +65,11 @@ CREATE TABLE `friend` (
 --
 
 INSERT INTO `friend` (`f_id`, `id_1`, `id_2`, `status`) VALUES
-(1, 1, 2, 0),
+(1, 1, 2, 1),
 (2, 1, 4, 0),
 (3, 1, 5, 0),
 (4, 2, 1, 0),
-(5, 3, 1, 0),
-(6, 3, 2, 1);
+(5, 3, 1, 0);
 
 -- --------------------------------------------------------
 

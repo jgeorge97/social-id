@@ -22,9 +22,10 @@
 			session_start();
 			$_SESSION['id'] = mysqli_fetch_assoc($u_id)['id']; // Assign session id as userid
 			sendResponse(1, $_SESSION['id']);
-
 		}
-		
+		else{
+			sendResponse(0, NULL);
+		}
 	}
 	
 	function sendResponse($status, $data){

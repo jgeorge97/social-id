@@ -20,4 +20,13 @@
 	if(isset($_GET['addSocial']) && isset($_GET['acc']) && isset($_GET['url']) && isset($_GET['visible'])){
 	        die(addSocial($_GET['acc'], $_GET['url'],$_GET['visible'], $conn));
 	    }
+
+	//Get username by id
+	if(isset($_GET['getUser']) && isset($_GET['uid'])){
+	        die(getUserbyID($_GET['uid'], $conn));
+	    }
+
+	if(isset($_GET['sendReq']) && isset($_GET['fuid'])){
+	        die(sendRequest($_GET['fuid'], $conn));
+	    }
 ?>

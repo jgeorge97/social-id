@@ -23,3 +23,13 @@ localhost/social-id/app.php?signOut
 ```
 localhost/social-id/app.php?addSocial&acc=<social_name>&url=<url>&visible=<public/private>
 ```
+
+* Get Username by ID
+```
+localhost/social-id/app.php?getUser&uid=<id>
+```
+
+* Send a Friend Request
+```
+localhost/social-id/app.php?sendReq&fuid=<id>
+```

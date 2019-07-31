@@ -68,3 +68,8 @@ localhost/social-id/app.php?viewProfile
 ```
 localhost/social-id/app.php?viewProfileID&id=<id>
 ```
+
+* Change visibility of a social account
+```
+localhost/social-id/app.php?changeVisible&sid=<sid>&visible=<0/1>
+```

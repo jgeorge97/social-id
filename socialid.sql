@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 30, 2019 at 10:45 PM
+-- Generation Time: Jul 31, 2019 at 06:00 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -42,7 +42,7 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`user_id`, `social_id`, `acc_name`, `acc_url`, `visibility`) VALUES
 (1, 1, 'FB', 'fb.com/jgeorge97', 1),
-(1, 2, 'IG', 'ig.com/george.m.jose', 1),
+(1, 2, 'IG', 'ig.com/george.m.jose', 0),
 (1, 3, 'TG', 't.me/georgemj', 0),
 (1, 4, 'MicroId', 'jgeorge97.microid.in', 1),
 (1, 5, 'Gmail', 'jgeorge97@gmail.com', 0);

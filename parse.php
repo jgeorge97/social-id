@@ -37,12 +37,12 @@
 	    }
 
 	// Accept Friend request by FID
-	if(isset($_GET['accReq']) && ($_GET['fid'])){
+	if(isset($_GET['accReq']) && isset($_GET['fid'])){
 	        die(acceptRequest($_GET['fid'], $conn));
 	    }
 
 	// Reject friend request by FID
-	if(isset($_GET['rejReq']) && ($_GET['fid'])){
+	if(isset($_GET['rejReq']) && isset($_GET['fid'])){
 	        die(rejectRequest($_GET['fid'], $conn));
 	    }
 
@@ -52,7 +52,12 @@
 	    }
 
 	// View profile by ID
-	if(isset($_GET['viewProfileID']) && ($_GET['id'])){
+	if(isset($_GET['viewProfileID']) && isset($_GET['id'])){
 	        die(viewProfilebyID($_GET['id'], $conn));
+	    }
+
+	// Change visibility to public/private
+	if(isset($_GET['changeVisible']) && isset($_GET['sid']) && isset($_GET['visible'])){
+	        die(changeVisibility($_GET['sid'], $_GET['visible'], $conn));
 	    }
 ?>

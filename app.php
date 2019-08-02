@@ -18,8 +18,11 @@
 	// Returns username when an id is passed
 	function getUserbyID($uid, $conn){
 		$user = mysqli_query($conn, "SELECT username FROM users WHERE id = $uid LIMIT 1");
+		$data = array();
 		if ($user && (mysqli_num_rows($user)==1)) { //Check if query result is valid
-			sendResponse(1, mysqli_fetch_assoc($user)['username']);
+			$data["username"] = array();
+			array_push($data["username"], mysqli_fetch_assoc($user)['username']);
+			sendResponse(1, $data);
 		}
 		else{
 			sendResponse(0, NULL);
@@ -41,10 +44,13 @@
 	function listRequestbyName($conn){
 		$cuid = $_SESSION['id']; //Get current user id from session id
 		$frnd = mysqli_query($conn, "SELECT name FROM users WHERE id = ANY (SELECT id_1 FROM friend WHERE id_2 = $cuid AND status = 0)");
+	    $data = array();
 		if ($frnd->num_rows > 0) {
+	    	$data["name"] = array();
 		    while($row = $frnd->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse(1, $row["name"]);
+		    	array_push($data["name"],$row);
 		    }
+		    sendResponse(1, $data);
 		} 	
 		else {
 	    	sendResponse(0, NULL);
@@ -55,10 +61,13 @@
 	function listRequestbyFID($conn){
 		$cuid = $_SESSION['id']; //Get current user id from session id
 		$ids = mysqli_query($conn, "SELECT f_id FROM friend WHERE id_2 = $cuid AND status = 0");
+	    $data = array();
 		if ($ids->num_rows > 0) {
+			$data["id"] = array();
 		    while($row = $ids->fetch_assoc()) { //Fetches each f_id of user & outputs them 
-		        sendResponse(1, $row["f_id"]);
+		        array_push($data["id"],$row);
 		    }
+		    sendResponse(1, $data);
 		} 	
 		else {
 	    	sendResponse(0, NULL);
@@ -69,10 +78,13 @@
 	function listFriends($conn){
 		$cuid = $_SESSION['id']; //Get current user id from session id
 		$frn = mysqli_query($conn, "SELECT name FROM users WHERE id = ANY (SELECT id_1 FROM friend WHERE id_2 = $cuid AND status = 1)");
+		$data = array();
 		if ($frn->num_rows > 0) {
+			$data["friends"] = array();
 		    while($row = $frn->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse(1, $row["name"]);
+		        array_push($data["friends"],$row);
 		    }
+		    sendResponse(1, $data);
 		} 	
 		else {
 	    	sendResponse(0, NULL);
@@ -101,26 +113,20 @@
 	}
 
 	function viewProfile($uid,$conn){
-		$prof = mysqli_query($conn, "SELECT username, name FROM users WHERE id = $uid LIMIT 1");
-		$acc = mysqli_query($conn, "SELECT social_id, acc_name, acc_url FROM accounts WHERE user_id = $uid");
-		if ($prof->num_rows == 1) {
-		    while($row = $prof->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse2(1, $row["username"], $row["name"]);
-		    }
-		} 	
-		else {
-	    	sendResponse(0, NULL);
-		}
-		echo "<br>";
-		if ($acc->num_rows > 0) {
-		    while($row = $acc->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse3(1, $row["social_id"], $row["acc_name"], $row["acc_url"]);
-		        echo "<br>";
-		    }
-		} 	
-		else {
-	    	sendResponse(0, NULL);
-		}
+	    $prof = mysqli_query($conn, "SELECT username, name FROM users WHERE id = $uid LIMIT 1");
+	    $acc = mysqli_query($conn, "SELECT social_id, acc_name, acc_url FROM accounts WHERE user_id = $uid");
+	    $data = array();
+	    if ($prof->num_rows == 1) {
+	      $data["user"] = $prof->fetch_assoc(); //Fetches name and username of user
+	      $data["accounts"] = array();
+	        while($row = $acc->fetch_assoc()) { //Fetches each account
+	            array_push($data["accounts"],$row);
+	        }
+	      sendResponse(1,$data);
+	    }else {
+	        sendResponse(0, NULL);
+	      return;
+	    }
 	}
 
 	// Change visibility to public/private
@@ -148,31 +154,6 @@
 		   $resp['status'] = "Failed";
 
 		$resp["data"] =  $data;
-		echo(json_encode($resp));
-		}
-
-	function sendResponse2($status, $data1, $data2){
-		if($status)
-		   $resp['status'] = "OK";
-		else
-		   $resp['status'] = "Failed";
-
-		$resp["data1"] =  $data1;
-		$resp["data2"] =  $data2;
-		
-		echo(json_encode($resp));
-		}
-
-	function sendResponse3($status, $data1, $data2, $data3){
-		if($status)
-		   $resp['status'] = "OK";
-		else
-		   $resp['status'] = "Failed";
-
-		$resp["data1"] =  $data1;
-		$resp["data2"] =  $data2;
-		$resp["data3"] =  $data3;
-		
 		echo(json_encode($resp));
 		}
 ?>

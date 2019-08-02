@@ -100,33 +100,9 @@
 		}
 	}
 
-	function viewProfile($conn){
-		$cuid = $_SESSION['id']; //Get current user id from session id
-		$prof = mysqli_query($conn, "SELECT username, name FROM users WHERE id = $cuid LIMIT 1");
-		$acc = mysqli_query($conn, "SELECT social_id, acc_name, acc_url FROM accounts WHERE user_id = $cuid");
-		if ($prof->num_rows == 1) {
-		    while($row = $prof->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse2(1, $row["username"], $row["name"]);
-		    }
-		} 	
-		else {
-	    	sendResponse(0, NULL);
-		}
-		echo "<br>";
-		if ($acc->num_rows > 0) {
-		    while($row = $acc->fetch_assoc()) { //Fetches each name of user & outputs them 
-		        sendResponse3(1, $row["social_id"], $row["acc_name"], $row["acc_url"]);
-		        echo "<br>";
-		    }
-		} 	
-		else {
-	    	sendResponse(0, NULL);
-		}
-	}
-
-	function viewProfilebyID($id, $conn){
-		$prof = mysqli_query($conn, "SELECT username, name FROM users WHERE id = $id LIMIT 1");
-		$acc = mysqli_query($conn, "SELECT social_id, acc_name, acc_url FROM accounts WHERE user_id = $id AND visibility = 1");
+	function viewProfile($uid,$conn){
+		$prof = mysqli_query($conn, "SELECT username, name FROM users WHERE id = $uid LIMIT 1");
+		$acc = mysqli_query($conn, "SELECT social_id, acc_name, acc_url FROM accounts WHERE user_id = $uid");
 		if ($prof->num_rows == 1) {
 		    while($row = $prof->fetch_assoc()) { //Fetches each name of user & outputs them 
 		        sendResponse2(1, $row["username"], $row["name"]);

@@ -48,13 +48,13 @@
 
 	// View Current profile
 	if(isset($_GET['viewProfile'])){
-	        die(viewProfile($conn));
+		// If profile ID is given
+		if(isset($_GET['id']))
+	        	die(viewProfile($_GET['id'],$conn));
+		else
+			die(viewProfile($_SESSION['id'],$conn));
 	    }
 
-	// View profile by ID
-	if(isset($_GET['viewProfileID']) && isset($_GET['id'])){
-	        die(viewProfilebyID($_GET['id'], $conn));
-	    }
 
 	// Change visibility to public/private
 	if(isset($_GET['changeVisible']) && isset($_GET['sid']) && isset($_GET['visible'])){

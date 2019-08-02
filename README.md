@@ -59,14 +59,11 @@ localhost/social-id/app.php?accReq&fid=<fid>
 localhost/social-id/app.php?rejReq&fid=6
 ```
 
-* View Profile of Current user
+* View Profile of Current user or a user by ID
 ```
 localhost/social-id/app.php?viewProfile
-```
 
-* View Profile by ID
-```
-localhost/social-id/app.php?viewProfileID&id=<id>
+localhost/social-id/app.php?viewProfile?id=<id>
 ```
 
 * Change visibility of a social account
